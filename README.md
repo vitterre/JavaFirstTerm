@@ -8,5 +8,5 @@ Group: 11-205
 
 # Abbreviations
 * `HW` - homework
-* `LE` - lection
+* `LE` - lecture
 * `PR` - practice
