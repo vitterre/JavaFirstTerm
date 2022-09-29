@@ -11,4 +11,4 @@ fi
 
 FULLRUNNAME=$(basename "$1")
 RUNNAME="${FULLRUNNAME%.*}"
-java -cp $CLASSDIR $RUNNAME
+java -Dfile.encoding=UTF-8 -classpath $CLASSDIR $RUNNAME
