@@ -11,3 +11,4 @@ Group: 11-205
 * `LE` - lecture
 * `PR` - practice
 * `LR` - laboratory work
+* `RE` - refactoring
