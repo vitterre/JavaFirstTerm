@@ -7,11 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="lab07" />
-        <module name="informatics" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="JavaFirstTerm" target="19" />
-    </bytecodeTargetLevel>
   </component>
 </project>
