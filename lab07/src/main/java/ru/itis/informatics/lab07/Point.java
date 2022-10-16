@@ -1,20 +1,37 @@
 package ru.itis.informatics.lab07;
 
-/**
- * Описать отрезок (x1, y1), (x2, y2)
- * 1) Метод параллельного переноса отрезка
- *    в направлении вектора v(x, y)
- * 2) Метод нахождения точки середины отрезка
- * 3) Написать модульные тесты (по приколу)
- */
 public class Point {
-	double x;
-	double y;
+	private double x;
+	private double y;
 
-	public double getDistance(Point p) {
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public double calculateDistance(Point p) {
 		return Math.sqrt(
 						(x - p.x) * (x - p.x) + (y - p.y) * (y - p.y)
 		);
+	}
+
+	@Override
+	public String toString() {
+		return "Point{" +
+						"x=" + x +
+						", y=" + y +
+						'}';
 	}
 
 	public Point(double x, double y) {
