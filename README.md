@@ -10,3 +10,4 @@ Group: 11-205
 * `HW` - homework
 * `LE` - lecture
 * `PR` - practice
+* `LR` - laboratory work
