@@ -1,9 +1,18 @@
 package ru.itis.informatics.lab08;
 
+import java.util.Arrays;
+
 public class Main {
-	public static void main(String[] args) {
-		MatrixNxM A = new MatrixNxM(2, 2, new double[][]{{1, 1}, {1, 1}});
-		MatrixNxM B = new MatrixNxM(2, 2, new double[][]{{2, 2}, {2, 2}});
-		System.out.println(A.multiply(20));
+	public static void main(String[] args) throws Exception {
+		Matrix matrix = new Matrix(new double[][]{
+			// {20, 120, 4},
+			{1, 2, 3},
+			{4, 10, 6},
+			{7, 8, 9},
+			{9, 5, 3}
+		});
+		System.out.println(matrix + "\n");
+		matrix.sortCol(2);
+		System.out.println(matrix);
 	}
 }
