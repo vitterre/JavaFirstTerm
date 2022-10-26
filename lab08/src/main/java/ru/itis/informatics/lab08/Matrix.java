@@ -17,6 +17,7 @@ import java.util.Arrays;
  * </p>
  */
 public final class Matrix {
+
 	/**
 	 * The number of <b>columns</b>.
 	 */
@@ -32,7 +33,7 @@ public final class Matrix {
 	 * corresponding to each matrix. It can change its
 	 * character relative to the <b>determinant operation</b>.
 	 */
-	private int determinantSign;
+	private int determinantSign = 1;
 
 	/**
 	 * In this case, the matrix is a <b>two-dimensional
@@ -41,10 +42,61 @@ public final class Matrix {
 	private double[][] matrix;
 
 	/**
+	 * Creates a new instance of {@code Matrix} based on
+	 * the number of rows {@code m} and columns {@code n}
+	 * and fills a two-dimensional array with zeros.
+	 *
+	 * @param n Columns
+	 * @param m Rows
+	 */
+	public Matrix(final int n, final int m) {
+		this.n = n;
+		this.m = m;
+		this.matrix = new double[m][n];
+	}
+
+	/**
+	 * Creates a new instance of {@code Matrix} based on
+	 * two-dimensional array. Also, it calculates {@code m}
+	 * and {@code n}.
+	 *
+	 * @param matrix Array
+	 * @throws Exception If two-dimensional array is not a
+	 *                   rectangle
+	 */
+	public Matrix(final double[][] matrix) throws Exception {
+		if (validate(matrix)) {
+			this.n = matrix[0].length;
+			this.m = matrix.length;
+			this.matrix = Arrays.copyOf(matrix, matrix.length);
+		}
+	}
+
+	/**
+	 * Creates a new instance of {@code Matrix} based on
+	 * the number of rows {@code m}, the number of columns
+	 * {@code n} and, of course, the two-dimensional array.
+	 *
+	 * @param n      Columns
+	 * @param m      Rows
+	 * @param matrix Array
+	 * @throws Exception If two-dimensional array is not a
+	 *                   rectangle
+	 */
+	public Matrix(final int n, final int m, final double[][] matrix) throws Exception {
+		if (validate(matrix) && m == matrix.length && n == matrix[0].length) {
+			this.n = n;
+			this.m = m;
+			this.matrix = Arrays.copyOf(matrix, matrix.length);
+		}
+	}
+
+	/**
 	 * This method checks whether a two-dimensional array
 	 * passed as an argument is a matrix.
+	 *
 	 * @param matrixForValidating Two-dimensional array
-	 * @return {@code true} if an array is a rectangle.
+	 * @return {@code true} if an array is a rectangle
 	 * @throws Exception Otherwise
 	 */
 	public static boolean validate(final double[][] matrixForValidating) throws Exception {
@@ -59,53 +111,6 @@ public final class Matrix {
 		}
 
 		return true;
-	}
-
-	/**
-	 * Creates a new instance of {@code Matrix} based on
-	 * the number of rows {@code m} and columns {@code n}
-	 * and fills a two-dimensional array with zeros.
-	 * @param n Columns
-	 * @param m Rows
-	 */
-	public Matrix(final int n, final int m) {
-		this.n = n;
-		this.m = m;
-		this.matrix = new double[m][n];
-	}
-
-	/**
-	 * Creates a new instance of {@code Matrix} based on
-	 * two-dimensional array. Also, it calculates {@code m}
-	 * and {@code n}.
-	 * @param matrix Array
-	 * @throws Exception If two-dimensional array is not a
-	 * rectangle
-	 */
-	public Matrix(final double[][] matrix) throws Exception {
-		if (validate(matrix)) {
-			this.n = matrix[0].length;
-			this.m = matrix.length;
-			this.matrix = Arrays.copyOf(matrix, matrix.length);
-		}
-	}
-
-	/**
-	 * Creates a new instance of {@code Matrix} based on
-	 * the number of rows {@code m}, the number of columns
-	 * {@code n} and, of course, the two-dimensional array.
-	 * @param n Columns
-	 * @param m Rows
-	 * @param matrix Array
-	 * @throws Exception If two-dimensional array is not a
-	 * rectangle
-	 */
-	public Matrix(final int n, final int m, final double[][] matrix) throws Exception {
-		if (validate(matrix) && m == matrix.length && n == matrix[0].length) {
-			this.n = n;
-			this.m = m;
-			this.matrix = Arrays.copyOf(matrix, matrix.length);
-		}
 	}
 
 	public int getN() {
@@ -156,19 +161,14 @@ public final class Matrix {
 
 	/**
 	 * Changes two columns of the matrix in places.
+	 *
 	 * @param current The number of the original column
-	 * @param to The number of the column to replace
-	 * the original column
+	 * @param to      The number of the column to replace
+	 *                the original column
 	 */
 	public void replaceCol(final int current, final int to) {
-		// If you change two columns in places in the
-		// determinant, the determinant changes the sign
-		if (current != to) {
-			determinantSign *= -1;
-		}
-
-		// tempRow will store the current сщд
 		final double[][] tempCol = new double[m][1];
+		determinantSign *= -1;
 
 		for (int i = 0; i < m; ++i) {
 			tempCol[i][0] = matrix[i][current];
@@ -179,19 +179,14 @@ public final class Matrix {
 
 	/**
 	 * Changes two rows of the matrix in places.
+	 *
 	 * @param current The number of the original row
-	 * @param to The number of the row to replace
-	 * the original row
+	 * @param to      The number of the row to replace
+	 *                the original row
 	 */
 	public void replaceRow(final int current, final int to) {
-		// If you change two rows in places in the
-		// determinant, the determinant changes the sign
-		if (current != to) {
-			determinantSign *= -1;
-		}
-
-		// tempRow will store the current row
 		final double[][] tempRow = new double[1][n];
+		determinantSign *= -1;
 
 		for (int j = 0; j < n; ++j) {
 			tempRow[0][j] = matrix[current][j];
@@ -202,31 +197,167 @@ public final class Matrix {
 
 	/**
 	 * Sorts the specified matrix column.
-	 * <p style="color: yellow">TODO: implement this</p>
+	 *
 	 * @param col The column number to be sorted
 	 */
 	public void sortCol(final int col) {
-		throw new UnsupportedOperationException();
+		for (int i = 0; i < m; ++i) {
+			for (int k = 0; k < m; ++k) {
+				if (matrix[i][col] < matrix[k][col]) {
+					replaceRow(i, k);
+				}
+			}
+		}
 	}
 
 	/**
 	 * Sorts the specified matrix row.
-	 * <p style="color: yellow">TODO: implement this</p>
-	 * @param row
+	 *
+	 * @param row The row number to be sorted
 	 */
 	public void sortRow(final int row) {
-		throw new UnsupportedOperationException();
+		for (int i = 0; i < n; ++i) {
+			for (int k = 0; k < n; ++k) {
+				if (matrix[row][i] < matrix[row][k]) {
+					replaceCol(i, k);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Adds one row to the other.
+	 *
+	 * @param first  The number of the row to which
+	 *               the other row is added
+	 * @param second The number of the row that is
+	 *               added to the other row
+	 */
+	public void addRow(final int first, final int second) {
+		for (int j = 0; j < n; ++j) {
+			matrix[first][j] += matrix[second][j];
+		}
+	}
+
+	/**
+	 * Adds one column to the other.
+	 *
+	 * @param first  The number of the column to which
+	 *               the other column is added
+	 * @param second The number of the column that is
+	 *               added to the other column
+	 */
+	public void addCol(final int first, final int second) {
+		for (int i = 0; i < m; ++i) {
+			matrix[i][first] += matrix[i][second];
+		}
+	}
+
+	/**
+	 * Multiplies a row by a real number.
+	 *
+	 * @param row    The row to be multiplied
+	 * @param number The number by which the row is
+	 *               multiplied
+	 */
+	public void multiplyRow(final int row, final double number) {
+		for (int j = 0; j < n; ++j) {
+			matrix[row][j] *= number;
+		}
+	}
+
+	/**
+	 * Multiplies a column by a real number.
+	 *
+	 * @param col    The column to be multiplied
+	 * @param number The number by which the column
+	 *               is multiplied
+	 */
+	public void multiplyCol(final int col, final double number) {
+		for (int i = 0; i < m; ++i) {
+			matrix[i][col] *= number;
+		}
 	}
 
 	/**
 	 * Converts the matrix to a stepped form.
-	 * @param reversed {@code false} if you want to
-	 * get an <b>upper</b> triangular matrix, and
-	 * {@code true} if you want to get a <b>lower</b>
-	 * triangular matrix
-	 * <p style="color: yellow">TODO: implement this</p>
+	 *
+	 * @throws Exception If the matrix is not a square
 	 */
-	public void makeTriangular(final boolean reversed) {
-		throw new UnsupportedOperationException();
+	public void makeTriangular() throws Exception {
+		if (validateSquaredMatrix()) {
+			throw new Exception("Matrix is not a square!");
+		}
+
+		for (int k = 0; k < n; ++k) {
+			int max = k;
+			for (int i = k + 1; i < n; ++i) {
+				if (matrix[i][k] > matrix[max][k]) {
+					max = i;
+				}
+			}
+
+			replaceRow(k, max);
+
+			for (int i = k + 1; i < n; ++i) {
+				final double factor = matrix[i][k] / matrix[k][k];
+				for (int j = k; j < n; ++j) {
+					matrix[i][j] -= factor * matrix[k][j];
+				}
+			}
+		}
+	}
+
+	/**
+	 * Multiplies the main diagonal of the matrix.
+	 *
+	 * @return The product of the main diagonal of
+	 * the matrix
+	 * @throws Exception If matrix is not a square
+	 */
+	public int multiplyDiameter() throws Exception {
+		if (validateSquaredMatrix()) {
+			throw new Exception("Matrix is not a square!");
+		}
+
+		int result = 1;
+
+		for (int i = 0; i < n; ++i) {
+			for (int j = 0; j < m; ++j) {
+				if (i == j) {
+					result *= matrix[i][j];
+				}
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * Checks if the matrix is square.
+	 *
+	 * @return {@code true} if it is and {@code false}
+	 * if it isn't
+	 */
+	public boolean validateSquaredMatrix() {
+		return n != m;
+	}
+
+	/**
+	 * Calculates the <b>determinant</b> of the matrix.
+	 * <p><b>Determinant</b> - a numerical characteristic
+	 * corresponding to each matrix.</p>
+	 *
+	 * @return The determinant of the matrix
+	 * @throws Exception If the matrix is not a square
+	 */
+	public int determinant() throws Exception {
+		if (validateSquaredMatrix()) {
+			throw new Exception("Matrix is not a square!");
+		}
+
+		final Matrix temp = new Matrix(matrix);
+		temp.makeTriangular();
+		return temp.multiplyDiameter() * determinantSign;
 	}
 }
