@@ -12,6 +12,7 @@ public class Main {
 		final Matrix actual = new Matrix(argument);
 
 		actual.makeTriangular();
+		
 		System.out.println(actual.determinant());
 
 		System.out.println(actual);

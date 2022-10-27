@@ -289,6 +289,9 @@ public final class Matrix {
 			throw new Exception("Matrix is not a square!");
 		}
 
+		// Temporary fix of the problem
+		determinantSign *= -1;
+
 		for (int k = 0; k < n; ++k) {
 			int max = k;
 			for (int i = k + 1; i < n; ++i) {
@@ -344,9 +347,13 @@ public final class Matrix {
 	}
 
 	/**
+	 * <p>
 	 * Calculates the <b>determinant</b> of the matrix.
-	 * <p><b>Determinant</b> - a numerical characteristic
-	 * corresponding to each matrix.</p>
+	 * </p>
+	 * <p>
+	 * <b>Determinant</b> - a numerical characteristic
+	 * corresponding to each matrix.
+	 * </p>
 	 *
 	 * @return The determinant of the matrix
 	 * @throws Exception If the matrix is not a square
