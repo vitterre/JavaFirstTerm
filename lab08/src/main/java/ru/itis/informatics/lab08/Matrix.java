@@ -280,8 +280,14 @@ public final class Matrix {
 	}
 
 	/**
+	 * <p>
 	 * Converts the matrix to a stepped form.
-	 *
+	 * </p>
+	 * <span style="color: yellow">
+	 * TODO: need to fix the bug where determinant
+	 * has the wrong sign
+	 * </span>
+	 * 
 	 * @throws Exception If the matrix is not a square
 	 */
 	public void makeTriangular() throws Exception {
@@ -333,7 +339,8 @@ public final class Matrix {
 			}
 		}
 
-		return result;
+		// Hot fix (not the best way)
+		return result * determinantSign;
 	}
 
 	/**
