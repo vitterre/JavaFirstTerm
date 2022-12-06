@@ -32,6 +32,7 @@ public final class Hex {
 		final byte[] out = new byte[n];
 
 		for (int i = 0; i < n; ++i) {
+			// todo: optimize
 			int low = charToInt(encoded.charAt(2 * i + 1));
 			int hi = charToInt(encoded.charAt(2 * i));
 

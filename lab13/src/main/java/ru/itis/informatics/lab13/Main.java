@@ -1,42 +1,39 @@
 package ru.itis.informatics.lab13;
 
-// List (optimized)    -> 473042
-// Default             -> 316875
+// ----- Optimizations checks ----- //
+// QueueArrays ->  3050708
+// QueueNodes  -> 23981416
+
 
 public class Main {
 	public static void main(String[] args) {
-		IStack stack = new StackImplList();
 
-		Long start = System.nanoTime();
+		final QueueNodes<Integer> queue = new QueueNodes<>();
 
-		stack.push(1);
-		stack.push(2);
-		stack.push(3);
-		stack.push(4);
-		stack.push(1);
-		stack.push(2);
-		stack.push(3);
-		stack.push(4);
-		stack.push(1);
-		stack.push(2);
-		stack.push(3);
-		stack.push(4);
+		final Long start = System.nanoTime();
 
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
-		System.out.println(stack.pop());
+		for (int i = 0; i < 5000; ++i) {
+			queue.add(i);
+		}
 
-		Long end = System.nanoTime();
+		for (int i = 0; i < 5000; ++i) {
+			queue.remove();
+		}
 
-		System.out.println(end - start);
+		final Long end = System.nanoTime();
+
+		System.out.println("Working time: " + (end - start));
+
+
+		// All elements before operations
+		System.out.println("Elements in queue then: " + queue);
+		// Remove the first element
+		System.out.println("Remove: " + queue.remove());
+		// View the head element
+		System.out.println("Head: " + queue.peek());
+		// View the size of queue
+		System.out.println("Size: " + queue.size());
+		// All elements after operations
+		System.out.println("Elements in queue now: " + queue);
 	}
 }
